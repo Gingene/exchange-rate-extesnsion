@@ -27,5 +27,4 @@ jobs:
 
       - name: 打包插件
         run: |
-          cd dist
           npm run build
