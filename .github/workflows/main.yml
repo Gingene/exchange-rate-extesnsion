@@ -19,17 +19,14 @@ jobs:
       - name: 指定Node.js版本
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-
-      - name: 安裝pnpm
-        run: npm install -g pnpm@latest
+          node-version: '20'
 
       - name: 安裝依賴
         run: |
-          cd chrome-extension
-          pnpm install
+          cd dist
+          npm install
 
       - name: 打包插件
         run: |
-          cd chrome-extension
-          pnpm run build
+          cd dist
+          npm run build
