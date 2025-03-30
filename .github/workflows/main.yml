@@ -1,0 +1,35 @@
+name: 打包插件並發布到Releases
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 打包工作
+    runs-on: ubuntu-latest
+    steps:
+      - name: 克隆代碼
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: 指定Node.js版本
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 安裝pnpm
+        run: npm install -g pnpm@latest
+
+      - name: 安裝依賴
+        run: |
+          cd chrome-extension
+          pnpm install
+
+      - name: 打包插件
+        run: |
+          cd chrome-extension
+          pnpm run build
