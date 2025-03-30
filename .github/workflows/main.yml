@@ -23,7 +23,6 @@ jobs:
 
       - name: 安裝依賴
         run: |
-          cd dist
           npm install
 
       - name: 打包插件
