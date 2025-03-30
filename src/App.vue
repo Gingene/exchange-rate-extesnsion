@@ -1,47 +1,37 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">匯率換算工具</h1>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <div v-if="fisrtLoading" class="text-center py-4">
+      <p class="text-gray-600 dark:text-gray-400">載入匯率資料中...</p>
     </div>
-  </header>
 
-  <main>
-    <TheWelcome />
-  </main>
+    <div v-else-if="currencyStore.error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+      {{ currencyStore.error }}
+    </div>
+
+    <template v-else>
+      <CurrencyConverter />
+      <FormatOptions />
+      <ThemeToggler />
+    </template>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script setup>
+import { ref, watchEffect } from 'vue'
+import CurrencyConverter from '@/components/CurrencyConverter.vue'
+import FormatOptions from '@/components/FormatOptions.vue'
+import ThemeToggler from '@/components/ThemeToggler.vue'
+import { useCurrencyStore } from '@/stores/currencyStore'
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+const fisrtLoading = ref(true)
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+const currencyStore = useCurrencyStore()
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+watchEffect(async () => {
+  currencyStore.fromCurrency
+  await currencyStore.updateRates()
+  fisrtLoading.value = false
+})
+</script>

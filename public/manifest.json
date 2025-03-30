@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "匯率插件",
+  "version": "1.0.0",
+  "description": "使用Intl.NumberFormat製作匯率插件",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": ["storage"]
+}
