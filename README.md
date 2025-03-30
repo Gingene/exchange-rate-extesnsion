@@ -19,6 +19,8 @@
 - [Prettier](https://prettier.io/)
 - [Oxlint](https://oxc-project.github.io/docs/guide/usage/linter.html)
 
+## 目前可以在 github-page 試用功能
+
 ## 推薦 IDE 設定
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (並禁用 Vetur)。建議安裝 `.vscode/extensions.json` 中推薦的擴充套件。
